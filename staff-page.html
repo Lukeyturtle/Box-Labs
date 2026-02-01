@@ -1,1 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Labs | Staff Portal</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0; font-family: 'Courier New', Courier, monospace;
+            background: #050a05; color: #00ffcc; min-height: 100vh; overflow-x: hidden;
+        }
 
+        /* Standard Banner */
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 10px 5%; background: rgba(0, 40, 0, 0.9);
+            border-bottom: 2px solid #00ffcc; position: sticky; top: 0; z-index: 1000;
+        }
+
+        .site-name { font-weight: bold; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* Dashboard Layout */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .panel {
+            background: rgba(0, 20, 0, 0.8);
+            border: 1px solid #00ffcc;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.1);
+        }
+
+        h2 { border-bottom: 1px solid #00ffcc; padding-bottom: 10px; font-size: 1.2rem; }
+
+        /* Reactor Styles */
+        .temp-display { font-size: 3rem; margin: 20px 0; color: #ff8c00; text-shadow: 0 0 10px #ff8c00; }
+        .btn-panel { display: flex; gap: 10px; }
+        button {
+            flex: 1; padding: 10px; background: transparent; border: 1px solid #00ffcc;
+            color: #00ffcc; cursor: pointer; font-family: inherit; font-weight: bold;
+        }
+        button:hover { background: #00ffcc; color: #000; }
+        .danger-btn { border-color: #ff4444; color: #ff4444; }
+        .danger-btn:hover { background: #ff4444; color: #fff; }
+
+        /* Animations */
+        @keyframes shake {
+            0% { transform: translate(1px, 1px) rotate(0deg); }
+            20% { transform: translate(-3px, 0px) rotate(1deg); }
+            40% { transform: translate(3px, 2px) rotate(-1deg); }
+            60% { transform: translate(-3px, 1px) rotate(0deg); }
+            80% { transform: translate(3px, -1px) rotate(1deg); }
+            100% { transform: translate(1px, -2px) rotate(-1deg); }
+        }
+
+        .shake-active { animation: shake 0.2s infinite; }
+        
+        #white-out {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; opacity: 0; pointer-events: none; transition: opacity 0.1s; z-index: 9999;
+        }
+
+        /* Minigame Area */
+        #game-zone { margin-top: 15px; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+
+<div id="white-out"></div>
+
+<nav>
+    <div class="site-name">BOX LABS // STAFF_LEVEL_4</div>
+    <div><a href="index.html" style="color:#ff4444; text-decoration:none; font-size:0.8rem;">LOGOUT</a></div>
+</nav>
+
+<div class="dashboard" id="main-ui">
+    
+    <div class="panel">
+        <h2>CORE THERMAL STATUS</h2>
+        <div class="temp-display"><span id="temp-val">0</span>K</div>
+        <div class="btn-panel">
+            <button onclick="changeTemp(100)">RAISE TEMP</button>
+            <button onclick="changeTemp(-100)">LOWER TEMP</button>
+        </div>
+    </div>
+
+    <div class="panel">
+        <h2>ACTIVE EXPERIMENTS</h2>
+        <p>Current: <strong>Sub-Atomic Particle Collision</strong></p>
+        <div id="game-zone">
+            <button onclick="startMinigame()">DO EXPERIMENT</button>
+        </div>
+        <div id="game-result" style="margin-top:10px;"></div>
+    </div>
+
+    <div class="panel">
+        <h2>FACILITY OVERRIDE</h2>
+        <div style="display: flex; flex-direction: column; gap: 10px;">
+            <button onclick="toggleLockdown()" class="danger-btn">TOGGLE LOCKDOWN</button>
+            <button onclick="meltdown()" class="danger-btn" style="background: #400; color: white;">INITIATE MELTDOWN</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // 1. REACTOR LOGIC
+    let currentTemp = 0;
+    function changeTemp(amt) {
+        currentTemp += amt;
+        if (currentTemp < 0) currentTemp = 0;
+        document.getElementById('temp-val').innerText = currentTemp;
+    }
+
+    // 2. EXPERIMENT MINIGAME (Reaction Timer)
+    function startMinigame() {
+        const zone = document.getElementById('game-result');
+        zone.innerHTML = "WAIT FOR IT...";
+        zone.style.color = "#00ffcc";
+        
+        const delay = Math.random() * 2000 + 1000;
+        setTimeout(() => {
+            zone.innerHTML = `<button onclick="testReaction(true)" style="background:yellow; color:black;">CLICK NOW!</button>`;
+            const startTime = Date.now();
+            window.gameTimeout = setTimeout(() => {
+                zone.innerHTML = "<span style='color:red;'>EXPERIMENT UNSUCCESSFUL: TOO SLOW</span>";
+            }, 600); // 0.6 seconds to click
+        }, delay);
+    }
+
+    function testReaction(clicked) {
+        clearTimeout(window.gameTimeout);
+        document.getElementById('game-result').innerHTML = "<span style='color:#00ffcc;'>EXPERIMENT SUCCESSFUL: DATA COLLECTED</span>";
+    }
+
+    // 3. ADMIN LOGIC
+    function toggleLockdown() {
+        document.body.classList.toggle('shake-active');
+    }
+
+    function meltdown() {
+        // Severe shaking
+        document.body.style.animationDuration = "0.05s";
+        document.body.classList.add('shake-active');
+        
+        setTimeout(() => {
+            const whiteout = document.getElementById('white-out');
+            whiteout.style.opacity = "1";
+            
+            setTimeout(() => {
+                whiteout.style.opacity = "0";
+                document.body.classList.remove('shake-active');
+                document.body.style.animationDuration = "0.2s";
+                alert("CORE RE-STABILIZED. MANUAL RESET COMPLETE.");
+            }, 10000); // 10 seconds of white-out
+        }, 3000); // Shakes for 3 seconds before explosion
+    }
+</script>
+
+</body>
+</html>
