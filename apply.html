@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Labs | Apply</title>
+    <style>
+        /* Using same base styles */
+        body, html { margin: 0; padding: 0; font-family: 'Segoe UI', sans-serif; background: #0d1a10; color: #e0e0e0; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        
+        .apply-card {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            border: 1px solid #333;
+            border-radius: 10px;
+            width: 350px;
+            text-align: center;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            background: #111;
+            border: 1px solid #444;
+            color: #fff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #00ffcc;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        #status {
+            margin-top: 20px;
+            color: #ff8c00;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="apply-card" id="formContainer">
+        <h2 style="color:#00ffcc">STAFF APPLICATION</h2>
+        <p style="font-size: 0.8rem;">Enter your details for clearance.</p>
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <button onclick="processApplication()">Submit Application</button>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        function processApplication() {
+            const status = document.getElementById('status');
+            const btn = document.querySelector('button');
+            
+            // Generate a random delay between 2 and 5 seconds
+            const delay = Math.floor(Math.random() * 3000) + 2000;
+            
+            btn.disabled = true;
+            status.innerHTML = "PROCESSING ENROLLMENT...";
+
+            setTimeout(() => {
+                document.getElementById('formContainer').innerHTML = `
+                    <h2 style="color:#00ffcc">APPLICATION ACCEPTED</h2>
+                    <p>Welcome to the team.</p>
+                    <div style="background:#111; padding:15px; border: 1px dashed #ff8c00; text-align:left;">
+                        <strong>CREDENTIALS:</strong><br>
+                        Username: <code>LabStaff_44</code><br>
+                        Password: <code>BoxReactor99</code>
+                    </div>
+                    <p style="font-size: 0.7rem; color: #888; margin-top:10px;">Keep these safe. Proceed to login page.</p>
+                    <a href="login.html" style="color:#ff8c00; text-decoration:none; font-size:0.9rem;">Back to Login</a>
+                `;
+            }, delay);
+        }
+    </script>
+</body>
+</html>
