@@ -1,1 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Box Labs | About</title>
+    <style>
+        /* Reusing global styles for consistency */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: radial-gradient(circle at top right, #1a2a3a, #0d1a10, #1a0f05);
+            background-attachment: fixed;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
 
+        nav {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%; background: rgba(0, 0, 0, 0.8);
+            border-bottom: 2px solid #333; position: fixed; top: 0; width: 90%; z-index: 1000;
+        }
+
+        .logo-area { display: flex; align-items: center; gap: 15px; }
+        .logo-placeholder { width: 40px; height: 40px; background: linear-gradient(45deg, #ff8c00, #00d4ff); border-radius: 5px; }
+        .site-name { font-size: 1.5rem; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #fff; }
+        .nav-links a { color: #aaa; text-decoration: none; margin-left: 25px; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: #00ffcc; }
+
+        /* Content Section */
+        .content-container {
+            max-width: 800px;
+            margin: 150px auto 50px;
+            padding: 40px;
+            background: rgba(0, 0, 0, 0.4);
+            border-left: 4px solid #ff8c00;
+            border-radius: 0 10px 10px 0;
+        }
+
+        h2 { color: #00ffcc; text-transform: uppercase; letter-spacing: 2px; }
+        p { line-height: 1.8; color: #ccc; }
+
+        .btn-join {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: #ff8c00;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .btn-join:hover {
+            background: #00ffcc;
+            box-shadow: 0 0 20px rgba(0, 255, 204, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo-area">
+            <div class="logo-placeholder"></div>
+            <span class="site-name">Box Labs</span>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="about.html" style="color:#00ffcc">About</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <div class="content-container">
+        <h2>Department of Advanced Sciences</h2>
+        <p>At Box Labs, we push the boundaries of modern understanding. Our core focus lies in <strong>Theoretical Nuclear Physics</strong>, high-energy particle acceleration, and experimental containment protocols. We operate 24/7 to ensure the safety and progress of our various classified experiments.</p>
+        <p>Our staff members are the backbone of our innovation. Whether it is monitoring reactor stability or conducting biological synthesis, every role at Box Labs is vital to the future of humanity.</p>
+        
+        <a href="apply.html" class="btn-join">Join Box Labs</a>
+    </div>
+
+</body>
+</html>
