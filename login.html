@@ -163,3 +163,17 @@
                 }, 1500);
             } else {
                 error.innerHTML = "INVALID USERNAME OR PASSWORD";
+                // Shake effect or feedback could go here
+            }
+        }
+
+        // Allow pressing "Enter" to login
+        document.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                checkLogin();
+            }
+        });
+    </script>
+
+</body>
+</html>
